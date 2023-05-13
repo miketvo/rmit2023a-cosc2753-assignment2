@@ -26,7 +26,7 @@ The dataset for this project is available on [Kaggle](https://kaggle.com/dataset
 
 1. Navigate to project's root directory.
 
-2. Clean all existing files in the `./data/` folder before downloading or updating this dataset:
+2. Clean all existing files in the `./data/` folder (if it exists) before downloading or updating this dataset:
 
     ```bash
     rm -r ./data/*
