@@ -1,12 +1,23 @@
 # Project: Classify Images of Flowers
 
-Assume you are a team of machine learning engineers working for an ecommerce flower shop, where users can order flowers. Before users buy flowers, the systems should have a functionality to help users navigate to the type of flowers that users want to buy. In most of the current online flower shops, users should type the name of the flowers and browse from the list of the results. However, to enhance the quality of the searching results, our shop provides an image based searching function, where the users can upload the images of the flowers that they are looking for. The system will accomplish an image search and return the list of flowers which are similar to the input image from users. In the dataset Flowers, there are 08 types of flowers: Baby, Calimero, Chrysanthemum, Hydrangeas, Lisianthus, Pingpong, Rosy and Tana.
+Assume you are a team of machine learning engineers working for an ecommerce flower shop, where users can order flowers. Before users buy flowers, the systems should have a functionality to help users navigate to the type of flowers that users want to buy. In most of the current online flower shops, users should type the name of the flowers and browse from the list of the results. However, to enhance the quality of the searching results, our shop provides an image based searching function, where the users can upload the images of the flowers that they are looking for. The system will accomplish an image search and return the list of flowers which are similar to the input image from users.
+
+In the dataset, there are 08 types of flowers:
+
+- Baby
+- Calimero
+- Chrysanthemum
+- Hydrangeas
+- Lisianthus
+- Pingpong
+- Rosy
+- Tana
 
 
 ## Goals
 
-- Goal 1: Classify images according to flower type (Baby, Calimero, Chrysanthemum, Hydrangeas, Lisianthus, Pingpong, Rosy and Tana)
-- Goal 2: Recommend 10 flower images in the dataset which is similar to the input flower image from users.
+1. Classify images according to flower type above.
+2. Recommend 10 flower images in the dataset which is similar to the input flower image from users.
 
 
 ## Dataset
