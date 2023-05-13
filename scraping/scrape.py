@@ -4,29 +4,37 @@ from icrawler.builtin import GoogleImageCrawler
 
 
 targets = {
+    'Baby': {
+        'keyword': 'baby\'s breath flower',
+        'amount': 1069
+    },
     'Calimerio': {
         'keyword': 'cúc calimero',
-        'amount': 600
+        'amount': 1647
     },
     'Chrysanthemum': {
         'keyword': 'chrysanthemum flower',
-        'amount': 214
+        'amount': 1304
     },
     'Hydrangeas': {
         'keyword': 'hoa tú cầu',
-        'amount': 214
+        'amount': 1482
+    },
+    'Lisianthus': {
+        'keyword': 'bó hoa cát tường',
+        'amount': 1031
     },
     'Pingpong': {
         'keyword': 'cúc ping pong',
-        'amount': 540
+        'amount': 1640
     },
     'Rosy': {
         'keyword': 'cúc rossi',
-        'amount': 730
+        'amount': 1829
     },
     'Tana': {
         'keyword': 'hoa cúc tana',
-        'amount': 280
+        'amount': 1377
     },
 }
 
@@ -65,3 +73,5 @@ if __name__ == '__main__':
                 filters=date_range,
                 file_idx_offset=0 if iteration == 0 else 'auto',
             )
+
+    print('\n[==== DONE ====]')
