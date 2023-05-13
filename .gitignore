@@ -106,6 +106,7 @@ ipython_config.py
 
 # Dataset
 data/
+scraping/*/
 
 ### Python ###
 # Byte-compiled / optimized / DLL files
