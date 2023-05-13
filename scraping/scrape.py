@@ -49,7 +49,7 @@ def date_ranges(start_datetime, interval, count):
 if __name__ == '__main__':
     for iteration, date_range in enumerate(date_ranges(datetime.datetime.now().date(), interval=7, count=156)):
         for flower_class, scrape_config in targets.items():
-            if len(os.listdir(flower_class)) >= scrape_config['amount']:
+            if iteration > 0 and len(os.listdir(flower_class)) >= scrape_config['amount']:
                 continue
 
             bot = GoogleImageCrawler(
