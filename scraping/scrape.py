@@ -2,6 +2,7 @@ import datetime
 import os
 from icrawler.builtin import GoogleImageCrawler
 
+
 targets = {
     'Calimerio': {
         'keyword': 'cúc calimero',
