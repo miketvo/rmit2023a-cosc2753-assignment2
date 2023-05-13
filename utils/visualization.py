@@ -3,7 +3,7 @@ from matplotlib import pyplot as plt
 
 
 def plot_learning_curve(
-        train_loss, val_loss, train_metric, val_metric, metric_name: str = 'F1',
+        train_loss, val_loss, train_metric, val_metric,
         to_file: str = None
 ) -> None:
     fig, ax = plt.subplots(1, 2, figsize=(10, 5))
@@ -17,7 +17,7 @@ def plot_learning_curve(
     ax[1].plot(train_metric, 'r--')
     ax[1].plot(val_metric, 'b--')
     ax[1].set_xlabel("epochs")
-    ax[1].set_ylabel(metric_name)
+    ax[1].set_ylabel('Accuracy')
     ax[1].legend(['train', 'val'])
 
     plt.show()
