@@ -53,4 +53,4 @@ The dataset for this project is available on [Kaggle](https://kaggle.com/dataset
 ## Independent Evaluation
 
 - Your independent evaluation is to research other works that have the same goals. Then you must compare and contrast your results to those other works.
-- Using data collected completely outside of the scope of your original training and evaluation.
+- Using data collected completely outside the scope of your original training and evaluation.
