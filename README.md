@@ -22,13 +22,21 @@ In the dataset, there are 08 types of flowers:
 
 ## Dataset
 
-Available on [Kaggle](https://kaggle.com/datasets/979207e9d5e6d91d26e8eb340941ae176c82fbdb2a25b4a436c273895ab96bb1). Download and **extract contents of** the `archive.zip` into `data/` folder.
+The dataset for this project is available on [Kaggle](https://kaggle.com/datasets/979207e9d5e6d91d26e8eb340941ae176c82fbdb2a25b4a436c273895ab96bb1). Follow these steps to download it:
 
-Alternatively, use the [Kaggle CLI](https://github.com/Kaggle/kaggle-api):
+1. Clean all existing files in the `data/` folder before downloading or updating this dataset:
 
-```bash
-kaggle datasets download -d miketvo/rmit-flowers -p ./data/ --unzip
-```
+    ```bash
+    rm -r data/*
+    ```
+
+2. Download and **extract contents of** the `archive.zip` on [Kaggle](https://kaggle.com/datasets/979207e9d5e6d91d26e8eb340941ae176c82fbdb2a25b4a436c273895ab96bb1) into `data/` folder.
+
+    Alternatively, use the [Kaggle CLI](https://github.com/Kaggle/kaggle-api):
+
+    ```bash
+    kaggle datasets download -d miketvo/rmit-flowers -p ./data/ --unzip
+    ```
 
 
 ## Requirements
