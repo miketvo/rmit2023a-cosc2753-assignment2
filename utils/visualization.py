@@ -3,29 +3,85 @@ import pandas as pd
 import seaborn as sns
 from matplotlib import pyplot as plt
 
-from utils.glob import COLORS
 
+def plot_data_distribution(
+        df: pd.DataFrame,
+        col: str | list,
+        title: str | list = None,
+        nrows: int = 1,
+        ncols: int = 1,
+        figsize: tuple = (5, 5),
+        colors: list = None,
+        annotate: bool = False,
+        xticklabels_rotation: float = 0.0,
+) -> tuple:
+    if type(col) is str:
+        if type(title) is not str:
+            raise TypeError("utils.visualization.plot_data_distribution(): 'col' and 'title' type mismatch")
+        if nrows != 1 or ncols != 1:
+            raise ValueError(
+                "utils.visualization.plot_data_distribution(): "
+                "for single plot, 'nrows' and 'ncols' must both equal to 1"
+            )
 
-def plot_class_distribution(df: pd.DataFrame, title: str, to_file: str = None):
-    fig, ax = plt.subplots(1, 1, figsize=(8, 8))
+        fig, ax = plt.subplots(1, 1, figsize=figsize)
 
-    sns.histplot(df, x='Class', ax=ax)
-    ax.set_xticks(ax.get_xticks())
-    ax.set_xticklabels(ax.get_xticklabels(), rotation=45)
-    ax.set_title(title)
+        sns.histplot(df, x=col, ax=ax)
+        ax.set_xticks(ax.get_xticks())
+        ax.set_xticklabels(ax.get_xticklabels(), rotation=xticklabels_rotation)
+        if title is not None:
+            ax.set_title(title)
 
-    for i, p in enumerate(ax.patches):
-        ax.annotate(
-            str(p.get_height()),
-            (p.get_x() + p.get_width() / 2.,
-             p.get_height()),
-            ha='center', va='center', xytext=(0, 5), textcoords='offset points'
-        )
-        p.set_facecolor(COLORS[i])
+        for i, p in enumerate(ax.patches):
+            if annotate:
+                ax.annotate(
+                    str(p.get_height()),
+                    (p.get_x() + p.get_width() / 2.,
+                     p.get_height()),
+                    ha='center', va='center', xytext=(0, 5), textcoords='offset points'
+                )
+            if colors is not None:
+                p.set_facecolor(colors[i])
 
-    plt.show()
-    if to_file is not None:
-        fig.savefig(to_file)
+        plt.show()
+        return fig, ax
+    else:
+        if type(title) is not str:
+            raise TypeError("utils.visualization.plot_data_distribution(): 'col' and 'title' type mismatch")
+        if len(col) != len(title):
+            raise ValueError("utils.visualization.plot_data_distribution(): 'col' and 'title' length mismatch")
+        if len(colors) != len(col):
+            raise ValueError("utils.visualization.plot_data_distribution(): 'colors' length mismatch")
+        if nrows * ncols != len(col):
+            raise ValueError(
+                "utils.visualization.plot_data_distribution(): "
+                "'nrows' and 'ncols' does not match number of plots"
+            )
+
+        fig, ax = plt.subplots(nrows, ncols, figsize=figsize)
+
+        for i, col_ in enumerate(col):
+            sns.histplot(df, x=col_, ax=ax[i])
+            ax[i].set_xticks(ax[i].get_xticks())
+            ax[i].set_xticklabels(ax[i].get_xticklabels(), rotation=xticklabels_rotation)
+            if title is not None and title[i] is not None:
+                ax[i].set_title(title[i])
+
+            for j, p in enumerate(ax[i].patches):
+                if annotate:
+                    ax[i].annotate(
+                        str(p.get_height()),
+                        (
+                            p.get_x() + p.get_width() / 2.,
+                            p.get_height()
+                        ),
+                        ha='center', va='center', xytext=(0, 5), textcoords='offset points'
+                    )
+                if colors is not None and colors[i] is not None:
+                    p.set_facecolor(colors[i][j])
+
+        plt.show()
+        return fig, ax
 
 
 def plot_learning_curve(

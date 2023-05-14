@@ -19,16 +19,23 @@ def load(from_dir: str) -> pd.DataFrame:
     :param from_dir: Directory of the dataset to be loaded.
     :return: A Pandas ``DataFrame`` containing the following columns:
         - ImgPath: Path to the image.
+        - FileType: The extension of the image file.
         - Class: Type of flower in the image. Can be either one of the above eight.
     """
 
     if from_dir[-1] != '/' and from_dir[-1] != '\\':
         from_dir += '/'
 
-    data_dict = {'ImgPath': [], 'Class': []}
+    data_dict = {
+        'ImgPath': [],
+        'FileType': [],
+        'Class': []
+    }
+
     for flower_class in os.listdir(from_dir):
         for ImgPath in os.listdir(f'{from_dir}{flower_class}'):
             data_dict['ImgPath'].append(f'{flower_class}/{ImgPath}')
+            data_dict['FileType'].append(ImgPath.split('.')[-1])
             data_dict['Class'].append(flower_class)
 
     return pd.DataFrame(data_dict)
