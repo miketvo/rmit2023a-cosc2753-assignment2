@@ -2,6 +2,7 @@ import math
 import numpy as np
 import pandas as pd
 import seaborn as sns
+from PIL import Image
 from matplotlib import pyplot as plt
 
 
@@ -76,6 +77,26 @@ def data_histplot(
                 ),
                 ha='center', va='center', xytext=(0, 5), textcoords='offset points'
             )
+
+
+def data_plot_16samples(df: pd.DataFrame, to_file: str = None):
+    sample_indices = np.linspace(0, df.shape[0] - 1, 16)
+
+    fig, ax = plt.subplots(4, 4, figsize=(12, 12))
+    ax = ax.ravel()
+
+    ax_i = 0
+    for i in sample_indices:
+        with Image.open(f'../data/raw/{df.iloc[int(i)]["ImgPath"]}') as im:
+            ax[ax_i].imshow(im)
+            ax[ax_i].set_title(df.iloc[int(i)]["ImgPath"], fontsize=12)
+            ax[ax_i].axis('off')
+
+        ax_i += 1
+
+    plt.show()
+    if to_file is not None:
+        fig.savefig(to_file)
 
 
 def plot_learning_curve(
