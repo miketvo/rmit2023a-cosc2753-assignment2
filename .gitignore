@@ -109,6 +109,9 @@ data/
 scraping/*/
 scraping/*.zip
 
+# Machine Learning
+log/
+
 ### Python ###
 # Byte-compiled / optimized / DLL files
 __pycache__/

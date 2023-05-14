@@ -119,9 +119,10 @@ def plot_learning_curve(
 
     ax[1].plot(train_metric, 'r--')
     ax[1].plot(val_metric, 'b--')
-    ax[1].set_xlabel("epochs")
+    ax[1].set_xlabel('epochs')
     ax[1].set_ylabel('Accuracy')
-    ax[1].legend(['train', 'val'])
+    ax[1].axhline(y=0.125, c='gold', a=0.5)  # Random probability - naive classifier
+    ax[1].legend(['train', 'val', 'random'])
 
     plt.show()
     if to_file is not None:
@@ -129,14 +130,14 @@ def plot_learning_curve(
 
 
 def visualize_predictions(
-        label_encoder: LabelEncoder,
+        labels: list,
         model: Model,
         test_generator: DataFrameIterator,
         to_file: str = None
 ) -> None:
     label_names = {}
-    for i, label in enumerate(label_encoder.classes_):
-        label[i] = label
+    for i, label in enumerate(labels):
+        label[label] = i
 
     fig, axes = plt.subplots(1, 5, figsize=(16, 4))
     batches = 0
