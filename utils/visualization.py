@@ -79,7 +79,10 @@ def data_histplot(
             )
 
 
-def data_plot_16samples(df: pd.DataFrame, to_file: str = None):
+def data_plot_16samples(from_dir: str, df: pd.DataFrame, to_file: str = None):
+    if from_dir[-1] != '/' and from_dir[-1] != '\\':
+        from_dir += '/'
+
     sample_indices = np.linspace(0, df.shape[0] - 1, 16)
 
     fig, ax = plt.subplots(4, 4, figsize=(12, 12))
@@ -87,7 +90,7 @@ def data_plot_16samples(df: pd.DataFrame, to_file: str = None):
 
     ax_i = 0
     for i in sample_indices:
-        with Image.open(f'../data/raw/{df.iloc[int(i)]["ImgPath"]}') as im:
+        with Image.open(f'{from_dir}{df.iloc[int(i)]["ImgPath"]}') as im:
             ax[ax_i].imshow(im)
             ax[ax_i].set_title(df.iloc[int(i)]["ImgPath"], fontsize=12)
             ax[ax_i].axis('off')
