@@ -1,96 +1,81 @@
+import math
 import numpy as np
 import pandas as pd
 import seaborn as sns
 from matplotlib import pyplot as plt
 
 
-def plot_data_distribution(
+def data_countplot(
         df: pd.DataFrame,
-        col: str | list,
-        title: str | list = None,
-        nrows: int = 1,
-        ncols: int = 1,
-        figsize: tuple = (5, 5),
-        colors: list = None,
-        annotate: bool | list = None,
+        col: str,
+        ax,
+        horizontal: bool = False,
+        title: str = None,
+        annotate: bool = False,
+        palette=None,
         xticklabels_rotation: float = 0.0,
-) -> tuple:
-    if type(col) is str:
-        if type(title) is not str:
-            raise TypeError("utils.visualization.plot_data_distribution(): 'col' and 'title' type mismatch")
-        if annotate is not None and type(annotate) is not bool:
-            raise TypeError("utils.visualization.plot_data_distribution(): 'annotate' must be a single bool value")
-        if nrows != 1 or ncols != 1:
-            raise ValueError(
-                "utils.visualization.plot_data_distribution(): "
-                "for single plot, 'nrows' and 'ncols' must both equal to 1"
-            )
-
-        fig, ax = plt.subplots(1, 1, figsize=figsize)
-
-        sns.histplot(df, x=col, ax=ax)
+) -> None:
+    if horizontal:
+        sns.countplot(y=df[col], ax=ax, palette=palette)
+    else:
+        sns.countplot(x=df[col], ax=ax, palette=palette)
         ax.set_xticks(ax.get_xticks())
         ax.set_xticklabels(ax.get_xticklabels(), rotation=xticklabels_rotation)
-        if title is not None:
-            ax.set_title(title)
 
-        for i, p in enumerate(ax.patches):
-            if annotate is not None and annotate is True:
+    if title is not None:
+        ax.set_title(title)
+
+    for patch in ax.patches:
+        if annotate:
+            if horizontal:
                 ax.annotate(
-                    str(p.get_height()),
-                    (p.get_x() + p.get_width() / 2.,
-                     p.get_height()),
+                    str(math.floor(patch.get_width())),
+                    (
+                        patch.get_width() / 2.,
+                        patch.get_y() + patch.get_height() / 2.
+                    ),
+                    ha='center', va='center', xytext=(0, 0), textcoords='offset points'
+                )
+            else:
+                ax.annotate(
+                    str(math.floor(patch.get_height())),
+                    (
+                        patch.get_x() + patch.get_width() / 2.,
+                        patch.get_height()
+                    ),
                     ha='center', va='center', xytext=(0, 5), textcoords='offset points'
                 )
-            if colors is not None:
-                p.set_facecolor(colors[i])
 
-        plt.show()
-        return fig, ax
-    else:
-        if title is not None and type(title) is not list:
-            raise TypeError("utils.visualization.plot_data_distribution(): 'col' and 'title' type mismatch")
-        if title is not None and len(col) != len(title):
-            raise ValueError("utils.visualization.plot_data_distribution(): 'title' and 'col' length mismatch")
-        if colors is not None and type(colors) is not list:
-            raise TypeError("utils.visualization.plot_data_distribution(): 'col' and 'colors' type mismatch")
-        if colors is not None and len(colors) != len(col):
-            raise ValueError("utils.visualization.plot_data_distribution(): 'colors' and 'col' length mismatch")
-        if annotate is not None and type(annotate) is not list:
-            raise TypeError("utils.visualization.plot_data_distribution(): 'annotate' must be a list of bool")
-        if annotate is not None and len(annotate) != len(col):
-            raise ValueError("utils.visualization.plot_data_distribution(): 'annotate' and 'col' length mismatch")
-        if nrows * ncols != len(col):
-            raise ValueError(
-                "utils.visualization.plot_data_distribution(): "
-                "'nrows' and 'ncols' does not match number of plots"
+
+def data_histplot(
+        df: pd.DataFrame,
+        col: str,
+        ax,
+        title: str = None,
+        stat: str = 'count',
+        bins='auto',
+        kde: bool = False,
+        line_kws: dict = None,
+        annotate: bool = False,
+        palette=None,
+        xticklabels_rotation: float = 0.0,
+) -> None:
+    sns.histplot(df, x=col, ax=ax, bins=bins, kde=kde, line_kws=line_kws, stat=stat, palette=palette)
+    ax.set_xticks(ax.get_xticks())
+    ax.set_xticklabels(ax.get_xticklabels(), rotation=xticklabels_rotation)
+    if title is not None:
+        ax.set_title(title)
+
+    for patch in ax.patches:
+        if annotate:
+            ax.annotate(
+                str(patch.get_height()),
+                (
+                    patch.get_x() + patch.get_width() / 2.,
+                    patch.get_height()
+                ),
+                ha='center', va='center', xytext=(0, 5), textcoords='offset points'
             )
-
-        fig, ax = plt.subplots(nrows, ncols, figsize=figsize)
-        ax_linear = ax.ravel()
-
-        for i, col_ in enumerate(col):
-            sns.histplot(df, x=col_, ax=ax_linear[i])
-            ax_linear[i].set_xticks(ax_linear[i].get_xticks())
-            ax_linear[i].set_xticklabels(ax_linear[i].get_xticklabels(), rotation=xticklabels_rotation)
-            if title is not None and title[i] is not None:
-                ax_linear[i].set_title(title[i])
-
-            for j, p in enumerate(ax_linear[i].patches):
-                if annotate:
-                    ax_linear[i].annotate(
-                        str(p.get_height()),
-                        (
-                            p.get_x() + p.get_width() / 2.,
-                            p.get_height()
-                        ),
-                        ha='center', va='center', xytext=(0, 5), textcoords='offset points'
-                    )
-                if colors is not None and colors[i] is not None:
-                    p.set_facecolor(colors[i][j])
-
-        plt.show()
-        return fig, ax
 
 
 def plot_learning_curve(
