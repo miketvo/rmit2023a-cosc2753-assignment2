@@ -21,6 +21,7 @@ def load(from_dir: str) -> pd.DataFrame:
         - ImgPath: Path to the image.
         - Class: Type of flower in the image. Can be either one of the above eight.
     """
+
     if from_dir[-1] != '/' and from_dir[-1] != '\\':
         from_dir += '/'
 
