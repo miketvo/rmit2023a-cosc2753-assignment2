@@ -12,12 +12,14 @@ def plot_data_distribution(
         ncols: int = 1,
         figsize: tuple = (5, 5),
         colors: list = None,
-        annotate: bool = False,
+        annotate: bool | list = None,
         xticklabels_rotation: float = 0.0,
 ) -> tuple:
     if type(col) is str:
         if type(title) is not str:
             raise TypeError("utils.visualization.plot_data_distribution(): 'col' and 'title' type mismatch")
+        if annotate is not None and type(annotate) is not bool:
+            raise TypeError("utils.visualization.plot_data_distribution(): 'annotate' must be a single bool value")
         if nrows != 1 or ncols != 1:
             raise ValueError(
                 "utils.visualization.plot_data_distribution(): "
@@ -33,7 +35,7 @@ def plot_data_distribution(
             ax.set_title(title)
 
         for i, p in enumerate(ax.patches):
-            if annotate:
+            if annotate is not None and annotate is True:
                 ax.annotate(
                     str(p.get_height()),
                     (p.get_x() + p.get_width() / 2.,
@@ -46,12 +48,18 @@ def plot_data_distribution(
         plt.show()
         return fig, ax
     else:
-        if type(title) is not str:
+        if title is not None and type(title) is not list:
             raise TypeError("utils.visualization.plot_data_distribution(): 'col' and 'title' type mismatch")
-        if len(col) != len(title):
-            raise ValueError("utils.visualization.plot_data_distribution(): 'col' and 'title' length mismatch")
-        if len(colors) != len(col):
-            raise ValueError("utils.visualization.plot_data_distribution(): 'colors' length mismatch")
+        if title is not None and len(col) != len(title):
+            raise ValueError("utils.visualization.plot_data_distribution(): 'title' and 'col' length mismatch")
+        if colors is not None and type(colors) is not list:
+            raise TypeError("utils.visualization.plot_data_distribution(): 'col' and 'colors' type mismatch")
+        if colors is not None and len(colors) != len(col):
+            raise ValueError("utils.visualization.plot_data_distribution(): 'colors' and 'col' length mismatch")
+        if annotate is not None and type(annotate) is not list:
+            raise TypeError("utils.visualization.plot_data_distribution(): 'annotate' must be a list of bool")
+        if annotate is not None and len(annotate) != len(col):
+            raise ValueError("utils.visualization.plot_data_distribution(): 'annotate' and 'col' length mismatch")
         if nrows * ncols != len(col):
             raise ValueError(
                 "utils.visualization.plot_data_distribution(): "
@@ -59,17 +67,18 @@ def plot_data_distribution(
             )
 
         fig, ax = plt.subplots(nrows, ncols, figsize=figsize)
+        ax_linear = ax.ravel()
 
         for i, col_ in enumerate(col):
-            sns.histplot(df, x=col_, ax=ax[i])
-            ax[i].set_xticks(ax[i].get_xticks())
-            ax[i].set_xticklabels(ax[i].get_xticklabels(), rotation=xticklabels_rotation)
+            sns.histplot(df, x=col_, ax=ax_linear[i])
+            ax_linear[i].set_xticks(ax_linear[i].get_xticks())
+            ax_linear[i].set_xticklabels(ax_linear[i].get_xticklabels(), rotation=xticklabels_rotation)
             if title is not None and title[i] is not None:
-                ax[i].set_title(title[i])
+                ax_linear[i].set_title(title[i])
 
-            for j, p in enumerate(ax[i].patches):
+            for j, p in enumerate(ax_linear[i].patches):
                 if annotate:
-                    ax[i].annotate(
+                    ax_linear[i].annotate(
                         str(p.get_height()),
                         (
                             p.get_x() + p.get_width() / 2.,
