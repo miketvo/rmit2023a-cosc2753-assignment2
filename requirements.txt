@@ -8,6 +8,7 @@ pandas
 seaborn
 scikit-learn
 scikit-image
+imagehash
 tensorflow
 keras
 icrawler

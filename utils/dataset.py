@@ -1,4 +1,5 @@
 import os
+import imagehash
 import pandas as pd
 from PIL import Image
 
