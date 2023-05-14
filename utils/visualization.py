@@ -1,5 +1,31 @@
 import numpy as np
+import pandas as pd
+import seaborn as sns
 from matplotlib import pyplot as plt
+
+from utils.glob import COLORS
+
+
+def plot_class_distribution(df: pd.DataFrame, title: str, to_file: str = None):
+    fig, ax = plt.subplots(1, 1, figsize=(8, 8))
+
+    sns.histplot(df, x='Class', ax=ax)
+    ax.set_xticks(ax.get_xticks())
+    ax.set_xticklabels(ax.get_xticklabels(), rotation=45)
+    ax.set_title(title)
+
+    for i, p in enumerate(ax.patches):
+        ax.annotate(
+            str(p.get_height()),
+            (p.get_x() + p.get_width() / 2.,
+             p.get_height()),
+            ha='center', va='center', xytext=(0, 5), textcoords='offset points'
+        )
+        p.set_facecolor(COLORS[i])
+
+    plt.show()
+    if to_file is not None:
+        fig.savefig(to_file)
 
 
 def plot_learning_curve(

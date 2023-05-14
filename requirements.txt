@@ -11,3 +11,4 @@ scikit-image
 tensorflow
 keras
 icrawler
+pillow

@@ -26,18 +26,18 @@ The dataset for this project is available on [Kaggle](https://kaggle.com/dataset
 
 1. Navigate to project's root directory.
 
-2. Clean all existing files in the `./data/` folder (if it exists) before downloading or updating this dataset:
+2. Clean all existing files in the `./data/raw` folder (if exists) before downloading or updating this dataset:
 
     ```bash
-    rm -r ./data/*
+    rm -r ./data/raw/*
     ```
 
-3. Download and **extract contents of** the `.zip` from [Kaggle](https://kaggle.com/datasets/979207e9d5e6d91d26e8eb340941ae176c82fbdb2a25b4a436c273895ab96bb1) into `./data/` folder.
+3. Download and **extract contents of** the `.zip` from [Kaggle](https://kaggle.com/datasets/979207e9d5e6d91d26e8eb340941ae176c82fbdb2a25b4a436c273895ab96bb1) into `./data/raw` folder.
 
    Alternatively, use the [Kaggle CLI](https://github.com/Kaggle/kaggle-api):
 
     ```bash
-    kaggle datasets download -d miketvo/rmit-flowers -p ./data/ --unzip
+    kaggle datasets download -d miketvo/rmit-flowers -p ./data/raw/ --unzip
     ```
 
 
