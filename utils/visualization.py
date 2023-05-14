@@ -3,7 +3,10 @@ import numpy as np
 import pandas as pd
 import seaborn as sns
 from PIL import Image
+from keras.preprocessing.image import DataFrameIterator
 from matplotlib import pyplot as plt
+from sklearn.preprocessing import LabelEncoder
+from keras.engine.training import Model
 
 
 def data_countplot(
@@ -125,17 +128,15 @@ def plot_learning_curve(
         fig.savefig(to_file)
 
 
-def visualize_predictions(model, test_generator, to_file: str = None) -> None:
-    label_names = {
-        'Babi': 0,
-        'Calimerio': 1,
-        'Chrysanthemum': 2,
-        'Hydrangeas': 3,
-        'Lisianthus': 4,
-        'Pingpong': 5,
-        'Rosy': 6,
-        'Tana': 7
-    }
+def visualize_predictions(
+        label_encoder: LabelEncoder,
+        model: Model,
+        test_generator: DataFrameIterator,
+        to_file: str = None
+) -> None:
+    label_names = {}
+    for i, label in enumerate(label_encoder.classes_):
+        label[i] = label
 
     fig, axes = plt.subplots(1, 5, figsize=(16, 4))
     batches = 0

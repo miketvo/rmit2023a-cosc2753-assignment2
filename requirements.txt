@@ -10,6 +10,7 @@ scikit-learn
 scikit-image
 imagehash
 tensorflow
+tensorflow-addons
 keras
 icrawler
 pillow
