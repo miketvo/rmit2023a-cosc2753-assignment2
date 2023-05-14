@@ -5,7 +5,7 @@ import seaborn as sns
 from PIL import Image
 from keras.preprocessing.image import DataFrameIterator
 from matplotlib import pyplot as plt
-from sklearn.preprocessing import LabelEncoder
+from matplotlib import colormaps
 from keras.engine.training import Model
 
 
@@ -121,42 +121,59 @@ def plot_learning_curve(
     ax[1].plot(val_metric, 'b--')
     ax[1].set_xlabel('epochs')
     ax[1].set_ylabel('Accuracy')
-    ax[1].axhline(y=0.125, c='gold', a=0.5)  # Random probability - naive classifier
+    ax[1].axhline(y=0.125, c='g', alpha=0.5)  # Random probability - naive classifier
     ax[1].legend(['train', 'val', 'random'])
 
+    fig.tight_layout()
     plt.show()
     if to_file is not None:
         fig.savefig(to_file)
 
 
 def visualize_predictions(
-        labels: list,
         model: Model,
         test_generator: DataFrameIterator,
         to_file: str = None
 ) -> None:
-    label_names = {}
-    for i, label in enumerate(labels):
-        label[label] = i
+    fig, ax = plt.subplots(4, 3, figsize=(16, 16))
 
-    fig, axes = plt.subplots(1, 5, figsize=(16, 4))
-    batches = 0
-    d_inv = {v: k for k, v in label_names.items()}
+    class_labels = list(test_generator.class_indices.keys())
+    for i in range(4):
+        image_path = test_generator.filepaths[i]
+        x, test_labels = next(test_generator)
+        pred = model.predict(x)
 
-    for x, y in test_generator:
-        batches = batches + 1
-        y_hat = model.predict(x, verbose=0)
-        x = np.squeeze(x)
+        # Get the predicted class label and the corresponding index
+        predicted_index = np.argmax(pred)
+        predicted_label = class_labels[predicted_index]
 
-        if batches <= 5:
-            ax = axes[batches - 1]
-            ax.imshow(x)
-            ax.set_title(f'GT-{d_inv[np.argmax(y[0])]}, Pred-{d_inv[np.argmax(y_hat[0])]}', fontsize=8)
-            ax.axis('off')
+        # Get the ground truth class label and the corresponding index
+        true_index = np.argmax(pred)
+        true_label = class_labels[true_index]
 
-        else:
-            break
+        # Plot the prediction results
+        cmap = colormaps.get_cmap('Set1')
+        ax[i, 0].barh(np.arange(len(pred)), pred, color=cmap(list(test_generator.class_indices.values())))
+        ax[i, 0].set_yticks(np.arange(len(pred)))
+        ax[i, 0].set_yticklabels(class_labels)
+        ax[i, 0].invert_yaxis()
+        ax[i, 0].set_xlabel('Probability')
+        ax[i, 0].set_xlim([0, 1])
+        ax[i, 0].set_title(
+            f'Ground Truth: {true_label}\n'
+            f'Prediction: {predicted_label}\n'
+            f'Result: {"CORRECT" if predicted_index == true_index else "INCORRECT"}'
+        )
 
+        # Load and plot source image
+        ax[i, 1].imshow(Image.open(image_path))
+        ax[i, 1].axis('off')
+
+        # Plot x
+        ax[i, 2].imshow(x)
+        ax[i, 2].axis('off')
+
+    plt.tight_layout()
     plt.show()
     if to_file is not None:
         fig.savefig(to_file)
