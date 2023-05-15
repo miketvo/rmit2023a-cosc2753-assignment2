@@ -10,6 +10,7 @@ For problem description and requirements, see [Project Statement](project-statem
 
 ```
 .
+├── font/
 ├── notebooks/
 │   ├── images/
 │   ├── Step1.EDA.ipynb
@@ -17,6 +18,8 @@ For problem description and requirements, see [Project Statement](project-statem
 │   └── Step3.Classifier-BaselineModel.ipynb
 ├── scraping/
 │   └── scrape.py
+├── classify.py
+├── recommend.py
 ├── requirements.txt
 ├── .gitignore
 ├── project-statement.md
@@ -24,24 +27,33 @@ For problem description and requirements, see [Project Statement](project-statem
 └── LICENSE
 ```
 
-1. `notebooks/`: This folder contains all Jupyter Notebooks for this project and their exported plots in `notebooks/images/`.
-2. `scrape/`: This folder contains a scraping script to get more images from the internet for our dataset. All downloaded images will also be in this folder.
-3. `requirements.txt`: Text file for `pip` installation of necessary packages for development environment.
-4. `.gitignore`: This file contains ignore VCS ignore rules.
-5. `README.md`: A text file containing useful reference information about this project, including how to run the algorithm.
-6. `LICENSE`: MIT
+1. `font/`: This folder contains the fonts used in our client script's GUI mode.
+2. `notebooks/`: This folder contains all Jupyter Notebooks for this project and their exported plots in `notebooks/images/`.
+3. `scrape/`: This folder contains a scraping script to get more images from the internet for our dataset. All downloaded images will also be in this folder.
+4. `classify.py`: Client script for classifying flower images using trained models.
+5. `recommend.py`: Client script for recommending flower images using trained models.
+6. `requirements.txt`: Text file for `pip` installation of necessary packages for development environment.
+7. `.gitignore`: This file contains ignore VCS ignore rules.
+8. `README.md`: A text file containing useful reference information about this project, including how to run the algorithm.
+9. `LICENSE`: MIT
 
 
 Additionally, these folders will be created during dataset fetching and model training:
 
 1. `data/`: This folder contains out datasets.
-2. `logs/`: This folder contains training logs exported from training our models.
+2. `log/`: This folder contains training logs exported from training our models.
 3. `models/`: This folder contains trained models exported after training.
 
 ---
 
 
 ## Getting Started 🚀
+
+Clone this repository:
+
+```bash
+git clone https://github.com/miketvo/rmit2023a-cosc2753-assignment2.git
+```
 
 
 ### Development Environment
@@ -53,6 +65,8 @@ pip install -r requirements.txt
 ```
 
 Refer to [requirements.txt](requirements.txt) for package dependencies and their versions.
+
+<span style="color:gold">**NOTE:**</span> It is recommended that you use a Python virtual environment to avoid conflict with your global packages, and to keep your global Python installation clean. This is because we require specific versions of Numpy, Tensorflow and Keras in our code to maintain backward compatibility and compatibility between trained models and client code.
 
 
 ### Download Dataset
@@ -91,10 +105,68 @@ Skip this step if you just want to use the pre-trained model packages available 
 
 If you are using one of our pre-trained model packages, download your desired version from [Packages](https://github.com/miketvo?tab=packages&repo_name=rmit2023a-cosc2753-assignment2) (.zip archives) and extract its contents into this project's root directory using your preferred zip program.
 
+On your terminal, make sure that you have the environment activated for the client script to have access to all required packages:
+
+- Python Virtualenv:
+
+   ```bash
+   ./venv/Scripts/activate
+   ```
+
+- Conda:
+
+   ```bash
+   conda activate ./envs
+   ```
+
 #### Classifying Flower Images
 
-To be written.
+Use the `classify.py` client script. Its syntax is as follows:
+
+```text
+python ./classify.py [-h] -f FILE -m MODEL [-g] [-v {0,1,2}]
+
+options:
+  -h, --help                                show this help message and exit
+  -f FILE, --file FILE                      the image to be classified
+  -c CLASSIFIER, --classifier CLASSIFIER    the machine learning model used for classification
+  -g, --gui                                 show classification result using GUI
+  -v {0,1,2}, --verbose-level {0,1,2}       verbose level, default: 0
+```
+
+Example use:
+
+```text
+$ python ./classify.py -f path/to/your/your/image.png -m ./models/clf-baseline -v=1
+Image image.png is classified as "Chrysanthemum" (model: "clf-baseline")
+```
+
+It also has a rudimentary GUI mode using your system's default GUI image viewer, which will display the image with a caption of what flower type it is classified as:
+
+```bash
+python ./classify.py --gui -f path/to/your/your/image.png -m ./models/clf-baseline
+```
+
 
 #### Recommending Flower Images
 
-To be written.
+Use the `recommend.py` client script. Its syntax is as follows:
+
+```text
+python ./recommend.py [-h] -f FILE -r RECOMMENDER -c CLASSIFIER [-n NUM]
+
+options:
+  -h, --help                                    show this help message and exit
+  -f FILE, --file FILE                          reference image
+  -r RECOMMENDER, --recommender RECOMMENDER     the machine learning model used for recommendation
+  -c CLASSIFIER, --classifier CLASSIFIER        the machine learning model used for classification
+  -n NUM, --num NUM                             number of recommendations, default: 10
+```
+
+Example:
+
+```bash
+python ./recommend.py --gui -f path/to/your/your/image.png -r ./models/recommender -c ./models/clf-baseline
+```
+
+When executed, the code above will display (using your system's default GUI image viewer) 10 similar flower images of the same type, based on your reference image.
