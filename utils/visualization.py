@@ -134,34 +134,37 @@ def visualize_16predictions(
         test_generator: DataFrameIterator,
         to_file: str = None
 ) -> None:
-    sample_indices = np.linspace(0, len(test_generator.labels) - 1, 16)
-    fig, ax = plt.subplots(4, 4, figsize=(12, 12))
+    fig, ax = plt.subplots(4, 4, figsize=(10, 10))
     ax = ax.ravel()
 
-    i = 0
     class_labels = list(test_generator.class_indices.keys())
-    for x, test_labels in test_generator:
-        if i not in sample_indices:
-            continue
-
-        pred = model.predict(x, verbose=0)
-        x = np.squeeze(x)
-        x = x.astype(int)
+    for i in range(16):
+        test_x, test_y = next(test_generator)
+        pred = model.predict(test_x, verbose=0)
+        test_x = np.squeeze(test_x)
+        test_x = test_x.astype(int)
 
         predicted_index = np.argmax(pred)
         predicted_label = class_labels[predicted_index]
-        true_index = np.argmax(pred)
+        true_index = np.argmax(test_y)
         true_label = class_labels[true_index]
 
-        ax[i].imshow(x)
+        ax[i].imshow(test_x)
         ax[i].axis('off')
         ax[i].set_title(
             f'Ground Truth: {true_label}\n'
-            f'Prediction: {predicted_label}\n'
-            f'Result: {"CORRECT" if predicted_index == true_index else "INCORRECT"}'
+            f'Prediction: {predicted_label}',
+            fontsize=8
         )
-
-        i += 1
+        ax[i].text(
+            0.5, 1.15, f'{"CORRECT" if predicted_index == true_index else "INCORRECT"}',
+            horizontalalignment='center',
+            verticalalignment='bottom',
+            transform=ax[i].transAxes,
+            fontsize=8,
+            color='green' if predicted_index == true_index else 'red',
+            weight='bold'
+        )
 
     plt.tight_layout()
     plt.show()
