@@ -41,13 +41,19 @@ For problem description and requirements, see [Project Statement](project-statem
 Additionally, these folders will be created during dataset fetching and model training:
 
 1. `data/`: This folder contains out datasets.
-2. `logs/`: This folder contains training logs exported from training our models.
+2. `log/`: This folder contains training logs exported from training our models.
 3. `models/`: This folder contains trained models exported after training.
 
 ---
 
 
 ## Getting Started 🚀
+
+Clone this repository:
+
+```bash
+git clone https://github.com/miketvo/rmit2023a-cosc2753-assignment2.git
+```
 
 
 ### Development Environment
@@ -59,6 +65,8 @@ pip install -r requirements.txt
 ```
 
 Refer to [requirements.txt](requirements.txt) for package dependencies and their versions.
+
+<span style="color:gold">**NOTE:**</span> It is recommended that you use a Python virtual environment to avoid conflict with your global packages, and to keep your global Python installation clean. This is because we require specific versions of Numpy, Tensorflow and Keras in our code to maintain backward compatibility and compatibility between trained models and client code.
 
 
 ### Download Dataset
@@ -99,7 +107,7 @@ If you are using one of our pre-trained model packages, download your desired ve
 
 On your terminal, make sure that you have the environment activated for the client script to have access to all required packages:
 
-- Python Virtualenv
+- Python Virtualenv:
 
    ```bash
    ./venv/Scripts/activate
