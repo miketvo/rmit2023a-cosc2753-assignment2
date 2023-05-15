@@ -122,7 +122,7 @@ def plot_learning_curve(
     ax[1].set_xlabel('epochs')
     ax[1].set_ylabel('Accuracy')
     ax[1].axhline(y=0.125, c='g', alpha=0.5)  # Random probability - naive classifier
-    ax[1].legend(['train', 'val', 'random'])
+    ax[1].legend(['train', 'val', 'random baseline'])
 
     fig.tight_layout()
     plt.show()
@@ -135,45 +135,33 @@ def visualize_predictions(
         test_generator: DataFrameIterator,
         to_file: str = None
 ) -> None:
-    # TODO: Fix this
-
-    fig, ax = plt.subplots(4, 3, figsize=(16, 16))
+    fig, ax = plt.subplots(3, 3, figsize=(12, 12))
+    ax = ax.ravel()
 
     class_labels = list(test_generator.class_indices.keys())
-    for i in range(4):
-        image_path = test_generator.filepaths[i]
+    for i in range(9):
         x, test_labels = next(test_generator)
         pred = model.predict(x, verbose=0)
+        x = np.squeeze(x)
+        x = x.astype(int)
 
-        # Get the predicted class label and the corresponding index
         predicted_index = np.argmax(pred)
         predicted_label = class_labels[predicted_index]
-
-        # Get the ground truth class label and the corresponding index
         true_index = np.argmax(pred)
         true_label = class_labels[true_index]
 
-        # Plot the prediction results
-        cmap = colormaps.get_cmap('Set1')
-        ax[i, 0].barh(pred, np.max(pred), color=cmap(list(test_generator.class_indices.values())))
-        ax[i, 0].set_yticks(np.arange(len(pred)))
-        ax[i, 0].set_yticklabels(class_labels)
-        ax[i, 0].invert_yaxis()
-        ax[i, 0].set_xlabel('Probability')
-        ax[i, 0].set_xlim([0, 1])
-        ax[i, 0].set_title(
+        # Load and plot source image
+        ax[i].imshow(x)
+        ax[i].axis('off')
+        ax[i].set_title(
             f'Ground Truth: {true_label}\n'
             f'Prediction: {predicted_label}\n'
             f'Result: {"CORRECT" if predicted_index == true_index else "INCORRECT"}'
         )
 
-        # Load and plot source image
-        ax[i, 1].imshow(Image.open(image_path))
-        ax[i, 1].axis('off')
-
         # Plot x
-        ax[i, 2].imshow(x)
-        ax[i, 2].axis('off')
+        ax[i].imshow(x)
+        ax[i].axis('off')
 
     plt.tight_layout()
     plt.show()

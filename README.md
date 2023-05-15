@@ -22,7 +22,7 @@ In the dataset, there are 08 types of flowers:
 
 ## Dataset
 
-The dataset for this project is available on [Kaggle](https://kaggle.com/datasets/979207e9d5e6d91d26e8eb340941ae176c82fbdb2a25b4a436c273895ab96bb1). Follow these steps to download it:
+The dataset for this project is available on [Kaggle](https://kaggle.com/datasets/979207e9d5e6d91d26e8eb340941ae176c82fbdb2a25b4a436c273895ab96bb1). Follow these steps to download and set it up for training and testing:
 
 1. Navigate to project's root directory.
 
@@ -39,6 +39,8 @@ The dataset for this project is available on [Kaggle](https://kaggle.com/dataset
     ```bash
     kaggle datasets download -d miketvo/rmit-flowers -p ./data/raw/ --unzip
     ```
+
+4. Setup for training and testing: Run [./notebooks/Step2.DataPrep.ipynb](./notebooks/Step2.DataPrep.ipynb). This will clean, process, and split the raw dataset and the resulting train and test set into `./data/train` and `./data/test`, respectively.
 
 
 ## Requirements
