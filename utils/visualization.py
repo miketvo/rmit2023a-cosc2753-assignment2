@@ -5,7 +5,6 @@ import seaborn as sns
 from PIL import Image
 from keras.preprocessing.image import DataFrameIterator
 from matplotlib import pyplot as plt
-from matplotlib import colormaps
 from keras.engine.training import Model
 
 
