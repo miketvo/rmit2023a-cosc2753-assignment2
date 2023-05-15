@@ -135,13 +135,15 @@ def visualize_predictions(
         test_generator: DataFrameIterator,
         to_file: str = None
 ) -> None:
+    # TODO: Fix this
+
     fig, ax = plt.subplots(4, 3, figsize=(16, 16))
 
     class_labels = list(test_generator.class_indices.keys())
     for i in range(4):
         image_path = test_generator.filepaths[i]
         x, test_labels = next(test_generator)
-        pred = model.predict(x)
+        pred = model.predict(x, verbose=0)
 
         # Get the predicted class label and the corresponding index
         predicted_index = np.argmax(pred)
@@ -153,7 +155,7 @@ def visualize_predictions(
 
         # Plot the prediction results
         cmap = colormaps.get_cmap('Set1')
-        ax[i, 0].barh(np.arange(len(pred)), pred, color=cmap(list(test_generator.class_indices.values())))
+        ax[i, 0].barh(pred, np.max(pred), color=cmap(list(test_generator.class_indices.values())))
         ax[i, 0].set_yticks(np.arange(len(pred)))
         ax[i, 0].set_yticklabels(class_labels)
         ax[i, 0].invert_yaxis()
