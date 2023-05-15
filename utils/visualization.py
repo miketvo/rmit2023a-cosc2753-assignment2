@@ -129,17 +129,21 @@ def plot_learning_curve(
         fig.savefig(to_file)
 
 
-def visualize_predictions(
+def visualize_16predictions(
         model: Model,
         test_generator: DataFrameIterator,
         to_file: str = None
 ) -> None:
-    fig, ax = plt.subplots(3, 3, figsize=(12, 12))
+    sample_indices = np.linspace(0, len(test_generator.labels) - 1, 16)
+    fig, ax = plt.subplots(4, 4, figsize=(12, 12))
     ax = ax.ravel()
 
+    i = 0
     class_labels = list(test_generator.class_indices.keys())
-    for i in range(9):
-        x, test_labels = next(test_generator)
+    for x, test_labels in test_generator:
+        if i not in sample_indices:
+            continue
+
         pred = model.predict(x, verbose=0)
         x = np.squeeze(x)
         x = x.astype(int)
@@ -149,7 +153,6 @@ def visualize_predictions(
         true_index = np.argmax(pred)
         true_label = class_labels[true_index]
 
-        # Load and plot source image
         ax[i].imshow(x)
         ax[i].axis('off')
         ax[i].set_title(
@@ -158,9 +161,7 @@ def visualize_predictions(
             f'Result: {"CORRECT" if predicted_index == true_index else "INCORRECT"}'
         )
 
-        # Plot x
-        ax[i].imshow(x)
-        ax[i].axis('off')
+        i += 1
 
     plt.tight_layout()
     plt.show()

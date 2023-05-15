@@ -82,7 +82,7 @@ The dataset for this project is available on [Kaggle](https://kaggle.com/dataset
 
 Skip this step if you just want to use the pre-trained model packages available from [Packages](https://github.com/miketvo?tab=packages&repo_name=rmit2023a-cosc2753-assignment2).
 
-- Run each Jupyter Notebook in `notebooks/` in their prefixed order starting `Step1.`, `Step2.`, `Step3.`, and so on.
+- Run each Jupyter Notebook in `notebooks/` in their prefixed order starting `Step1.`, `Step2.`, `Step3.`, and so on, <span style="color:red">**one file at a time**</span>.
 - Skip [Step2.DataPrep.ipynb](./notebooks/Step2.DataPrep.ipynb) if you have already run it after downloading the raw dataset.
 - The resulting models are exported into `models/` folder. Their training logs are stored in `log/` folder.
 
