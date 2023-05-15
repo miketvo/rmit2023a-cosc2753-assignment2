@@ -2,4 +2,11 @@ TARGET_IMG_SIZE = 256  # This image size is the most computationally efficient w
 
 CLASS_LABELS = [
     'Baby',
+    'Calimerio',
+    'Chrysanthemum',
+    'Hydrangeas',
+    'Lisianthus',
+    'Pingpong',
+    'Rosy',
+    'Tana'
 ]
