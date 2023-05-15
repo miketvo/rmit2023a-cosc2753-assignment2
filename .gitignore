@@ -111,6 +111,7 @@ scraping/*.zip
 
 # Machine Learning
 log/
+models/
 
 ### Python ###
 # Byte-compiled / optimized / DLL files
