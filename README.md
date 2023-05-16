@@ -159,14 +159,14 @@ options:
 Example use:
 
 ```text
-$ python ./classify.py -f path/to/your/your/image.png -m ./models/clf-baseline -v=1
-Image image.png is classified as "Chrysanthemum" (model: "clf-baseline")
+$ python ./classify.py -f path/to/your/your/image.png -m ./models/clf -v=1
+Image image.png is classified as "Chrysanthemum" (model: "clf")
 ```
 
 It also has a rudimentary GUI mode using your system's default GUI image viewer, which will display the image with a caption of what flower type it is classified as:
 
 ```bash
-python ./classify.py --gui -f path/to/your/your/image.png -m ./models/clf-baseline
+python ./classify.py --gui -f path/to/your/your/image.png -m ./models/clf
 ```
 
 
@@ -188,7 +188,7 @@ options:
 Example:
 
 ```bash
-python ./recommend.py --gui -f path/to/your/your/image.png -r ./models/recommender -c ./models/clf-baseline
+python ./recommend.py --gui -f path/to/your/your/image.png -r ./models/rcm -c ./models/clf
 ```
 
 When executed, the code above will display (using your system's default GUI image viewer) 10 similar flower images of the same type, based on your reference image.
