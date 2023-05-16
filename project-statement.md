@@ -27,7 +27,7 @@ The dataset for this project is available on [Kaggle](https://kaggle.com/dataset
 
 ## Requirements
 
-- You are required to do the pre-processing step on the Flower dataset, including extracollection if necessary.
+- You are required to do the pre-processing step on the Flower dataset, including extra collection if necessary.
 - You must investigate at least one machine learning algorithms for each of the two tasks. That is, you must build at least one model capable of predicting the type of flower images, and at least one model capable of showing 10 similar images.
 - You must submit two models (one for each task).
 - You are not required to use separate type(s) of machine learning algorithms, however, a thorough investigation should consider different types of algorithms.
@@ -40,4 +40,3 @@ The dataset for this project is available on [Kaggle](https://kaggle.com/dataset
 
 - Your independent evaluation is to research other works that have the same goals. Then you must compare and contrast your results to those other works.
 - Using data collected completely outside the scope of your original training and evaluation.
-- 
