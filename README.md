@@ -191,4 +191,7 @@ Example:
 python ./recommend.py --gui -f path/to/your/your/image.png -r ./models/rcm -c ./models/clf
 ```
 
-When executed, the code above will display (using your system's default GUI image viewer) 10 similar flower images of the same type, based on your reference image.
+When executed, the code above will display (using your system's default GUI image viewer) 10 similar flower images of the same type from its database (`data/recommender-database/`), based on your reference image.
+
+If `data/recommender-database/` does not exist, `recommend.py` will automatically generate it from the raw dataset in `data/raw/` by copying over unique images (since we have a lot of data duplication in our raw dataset).
+
