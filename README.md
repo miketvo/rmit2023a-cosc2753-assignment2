@@ -88,8 +88,30 @@ The dataset for this project is available on [Kaggle](https://kaggle.com/dataset
     ```bash
     kaggle datasets download -d miketvo/rmit-flowers -p ./data/raw/ --unzip
     ```
+   
+    The resulting folder structure should look like this:
+    
+    ```
+    .
+    ├── data/
+    │   └── raw/
+    │       ├── Baby/
+    │       ├── Calimerio/
+    │       ├── Chrysanthemum/
+    │       ...
+    │       └── Tana/
+    │
+    ...
+    ```
+    
+    where each folder corresponds to a flower class, and contains images of only that class.
 
-4. Setup for training and testing: Run [notebooks/Step2.DataPrep.ipynb](./notebooks/Step2.DataPrep.ipynb). This will clean, process, and split the raw dataset and the resulting train and test set into `data/train` and `data/test`, respectively.
+4. Setup for training and testing: Run [notebooks/Step2.DataPrep.ipynb](./notebooks/Step2.DataPrep.ipynb). This will clean, process, and split the raw dataset and the resulting train and test set into `data/train` and `data/test`, respectively. Clean these folders before you run this notebook:
+
+    ```bash
+    rmdir -r ./data/train
+    rmdir -r ./data/test
+    ```
 
 
 ### Training
