@@ -116,7 +116,7 @@ The dataset for this project is available on [Kaggle](https://kaggle.com/dataset
 
 ### Training
 
-Skip this step if you just want to use the pre-trained model packages available from [Packages](https://github.com/miketvo?tab=packages&repo_name=rmit2023a-cosc2753-assignment2).
+Skip this step if you just want to use on of the pre-trained model packages available from [Releases](https://github.com/miketvo/rmit2023a-cosc2753-assignment2/releases).
 
 - Run each Jupyter Notebook in `notebooks/` in their prefixed order starting `Step1.`, `Step2.`, `Step3.`, and so on, <span style="color:red">**one file at a time**</span>.
 - Skip [Step2.DataPrep.ipynb](./notebooks/Step2.DataPrep.ipynb) if you have already run it after downloading the raw dataset.
@@ -125,7 +125,7 @@ Skip this step if you just want to use the pre-trained model packages available 
 
 ### Using Trained Models
 
-If you are using one of our pre-trained model packages, download your desired version from [Packages](https://github.com/miketvo?tab=packages&repo_name=rmit2023a-cosc2753-assignment2) (.zip archives) and extract its contents into this project's root directory using your preferred zip program.
+If you are using one of our pre-trained model packages, download your desired version from [Releases](https://github.com/miketvo/rmit2023a-cosc2753-assignment2/releases) (.zip archives) and extract its contents into this project's root directory using your preferred zip program. Make sure to check and clean `models/` folder (if exists) to avoid naming conflict with existing trained model befire the extraction.
 
 On your terminal, make sure that you have the environment activated for the client script to have access to all required packages:
 
