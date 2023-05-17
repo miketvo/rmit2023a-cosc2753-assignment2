@@ -9,14 +9,22 @@ from utils.glob import CLASS_LABELS
 import utils.data_manip as manip
 
 
-def classify(image_path: str, model_path: str, verbose: bool = False) -> tuple:
+def classify(image_path: str, classifier_path: str, verbose: bool = False) -> tuple:
+    """
+    Uses a trained machine learning model to classify an image loaded from disk.
+    :param image_path: Path to the image to be classified.
+    :param classifier_path: Path to the classifier model to be used.
+    :param verbose: Verbose output.
+    :return: The original image (PIL.image) and its classification (str).
+    """
+
     im_original = Image.open(image_path)
     im_processed = manip.remove_transparency(im_original)
     im_processed = manip.resize_crop(im_processed, TARGET_IMG_SIZE, TARGET_IMG_SIZE)
     im_processed = manip.normalize_pixels(im_processed)
     im_processed = tf.expand_dims(im_processed, axis=0)
 
-    model: Model = tf.keras.models.load_model(model_path)
+    model: Model = tf.keras.models.load_model(classifier_path)
     pred = model.predict(im_processed, verbose=1 if verbose else 0)
 
     pred_class_idx = tf.argmax(pred, axis=1).numpy()[0]

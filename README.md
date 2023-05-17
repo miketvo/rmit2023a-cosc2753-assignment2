@@ -106,7 +106,7 @@ The dataset for this project is available on [Kaggle](https://kaggle.com/dataset
     
     where each folder corresponds to a flower class, and contains images of only that class.
 
-4. Setup for training and testing: Run [notebooks/Step2.DataPrep.ipynb](./notebooks/Step2.DataPrep.ipynb). This will clean, process, and split the raw dataset and the resulting train and test set into `data/train` and `data/test`, respectively. Clean these folders before you run this notebook:
+4. Setup for training and testing: Run [notebooks/Step2.DataPrep.ipynb](/notebooks/Step2.DataPrep.ipynb). This will clean, process, and split the raw dataset and the resulting train and test set into `data/train` and `data/test`, respectively. Clean these folders before you run this notebook:
 
     ```bash
     rmdir -r ./data/train
@@ -119,13 +119,25 @@ The dataset for this project is available on [Kaggle](https://kaggle.com/dataset
 Skip this step if you just want to use on of the pre-trained model packages available from [Releases](https://github.com/miketvo/rmit2023a-cosc2753-assignment2/releases).
 
 - Run each Jupyter Notebook in `notebooks/` in their prefixed order starting `Step1.`, `Step2.`, `Step3.`, and so on, <span style="color:red">**one file at a time**</span>.
-- Skip [Step2.DataPrep.ipynb](./notebooks/Step2.DataPrep.ipynb) if you have already run it after downloading the raw dataset.
+- Skip [Step2.DataPrep.ipynb](notebooks/Step2.DataPrep.ipynb) if you have already run it after downloading the raw dataset.
 - The resulting models are exported into `models/` folder. Their training logs are stored in `log/` folder.
 
 
 ### Using Trained Models
 
 If you are using one of our pre-trained model packages, download your desired version from [Releases](https://github.com/miketvo/rmit2023a-cosc2753-assignment2/releases) (.zip archives) and extract its contents into this project's root directory using your preferred zip program. Make sure to check and clean `models/` folder (if exists) to avoid naming conflict with existing trained model befire the extraction.
+
+These trained models can then be loaded into your code with:
+
+```python
+import tensorflow as tf
+
+model = tf.keras.models.load_model('path/to/model')
+```
+
+Additionally, two Python files, `classify.py` and `recommend.py`, are provided as simple front-ends to our trained model. You can either run them as standalone script in the terminal or import them as Python module in your own Python script or Jupyter Notebook to programmatically classify multiple images and recommend similar images for each of them.
+
+To use them as standalone script, see instruction below:
 
 On your terminal, make sure that you have the environment activated for the client script to have access to all required packages:
 
@@ -168,6 +180,8 @@ It also has a rudimentary GUI mode using your system's default GUI image viewer,
 ```bash
 python ./classify.py --gui -f path/to/your/your/image.png -m ./models/clf
 ```
+
+**Note:** Alternatively, you can import its `classify.classify()` function into your own script or notebook to programmatically classify multiple images (see its docstring for instruction on how to use).
 
 
 #### Recommending Flower Images
