@@ -1,4 +1,4 @@
-# COSC2658 Data Structures and Algorithms - Group Project
+# COSC2753 - Machine Learning - Group Machine Learning Project (40%) 
 
 For problem description and requirements, see [Project Statement](project-statement.md).
 
