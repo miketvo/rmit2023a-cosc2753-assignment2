@@ -169,6 +169,9 @@ It also has a rudimentary GUI mode using your system's default GUI image viewer,
 python ./classify.py --gui -f path/to/your/your/image.png -m ./models/clf
 ```
 
+You can also import its `classify.classify()` f
+unction into your own script or notebook to programmatically classify multiple images (see its docstring for instruction on how to use).
+
 
 #### Recommending Flower Images
 
