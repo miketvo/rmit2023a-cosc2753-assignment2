@@ -73,3 +73,11 @@ def load(from_dir: str) -> pd.DataFrame:
                 data_dict['Class'].append(flower_class)
 
     return pd.DataFrame(data_dict)
+
+def get_class_names(dataset_path):
+    """
+    Get the names of the eight flower classes in the dataset.
+    """
+    class_names = os.listdir(dataset_path)
+    class_names.sort()
+    return class_names
