@@ -178,7 +178,7 @@ $ python ./classify.py -f path/to/your/your/image.png -m ./models/clf -v=1
 Image image.png is classified as "Chrysanthemum" (model: "clf")
 ```
 
-It also has a rudimentary GUI mode using your system's default GUI image viewer, which will display the image with a caption of what flower type it is classified as:
+It also has a rudimentary GUI mode using Matplotlib, which will display the image with a caption of what flower type it is classified as:
 
 ```bash
 python ./classify.py --gui -f path/to/your/your/image.png -m ./models/clf
@@ -192,14 +192,15 @@ python ./classify.py --gui -f path/to/your/your/image.png -m ./models/clf
 Use the `recommend.py` client script. Its syntax is as follows:
 
 ```text
-usage: recommend.py [-h] -f FILE [-d DATABASE] [-e FEATURE_EXTRACTOR] [-k CLUSTERING_MODEL] [-n NUM]
+usage: recommend.py [-h] -f FILE [-d DATABASE] [-c CLASSIFIER] [-e FEATURE_EXTRACTOR] [-k CLUSTERING_MODEL] [-n NUM]
 
 options:
   -h, --help                                                        show this help message and exit
   -f FILE, --file FILE                                              reference image
-  -d DATABASE, --database DATABASE                                  the database containing the images to be recommended
-  -e FEATURE_EXTRACTOR, --feature-extractor FEATURE_EXTRACTOR       the machine learning model used for image feature extraction
-  -k CLUSTERING_MODEL, --clustering-model CLUSTERING_MODEL          the machine learning model used for image clustering
+  -d DATABASE, --database DATABASE                                  the database containing the images to be recommended, default: data/recommender-database
+  -c CLASSIFIER, --classifier CLASSIFIER                            the machine learning model used for image classification, default: models/clf-cnn
+  -e FEATURE_EXTRACTOR, --feature-extractor FEATURE_EXTRACTOR       the machine learning model used for image feature extraction, default: models/fe-cnn
+  -k CLUSTERING_MODEL, --clustering-model CLUSTERING_MODEL          the machine learning model used for image clustering, default: models/clu-kmeans.model
   -n NUM, --num NUM                                                 number of recommendations, default: 10
 ```
 
@@ -209,4 +210,4 @@ Example:
 python ./recommend.py -f path/to/your/your/image.png
 ```
 
-When executed, the code above will display (using your system's default GUI image viewer) 10 similar flower images of the same type from the recommender database in `data/recommender-database/`, based on your reference image.
+When executed, the code above will display 10 similar flower images (GUI mode) of the same type, taken from the recommender database in `data/recommender-database/`, based on your reference image, using the default classifier, feature extractor, and clustering model
