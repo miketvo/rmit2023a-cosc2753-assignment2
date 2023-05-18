@@ -1,4 +1,5 @@
 jupyter
+tqdm
 ipython
 numpy==1.23.5
 matplotlib
@@ -15,3 +16,4 @@ keras==2.12.0
 keras-tuner==1.3.5
 icrawler
 pillow==9.5.0
+joblib
