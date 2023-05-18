@@ -1,4 +1,4 @@
-# COSC2658 Data Structures and Algorithms - Group Project
+# COSC2753 - Machine Learning: Group Machine Learning Project
 
 For problem description and requirements, see [Project Statement](project-statement.md).
 
@@ -161,12 +161,12 @@ On your terminal, make sure that you have the environment activated for the clie
 Use the `classify.py` client script. Its syntax is as follows:
 
 ```text
-python ./classify.py [-h] -f FILE -m MODEL [-g] [-v {0,1,2}]
+usage: classify.py [-h] -f FILE [-c CLASSIFIER] [-g] [-v {0,1,2}]
 
 options:
   -h, --help                                show this help message and exit
   -f FILE, --file FILE                      the image to be classified
-  -c CLASSIFIER, --classifier CLASSIFIER    the machine learning model used for classification
+  -c CLASSIFIER, --classifier CLASSIFIER    the machine learning model used for classification, defaults: models/clf-cnn
   -g, --gui                                 show classification result using GUI
   -v {0,1,2}, --verbose-level {0,1,2}       verbose level, default: 0
 ```
@@ -192,20 +192,21 @@ python ./classify.py --gui -f path/to/your/your/image.png -m ./models/clf
 Use the `recommend.py` client script. Its syntax is as follows:
 
 ```text
-python ./recommend.py [-h] -f FILE -r RECOMMENDER -c CLASSIFIER [-n NUM]
+usage: recommend.py [-h] -f FILE [-d DATABASE] [-e FEATURE_EXTRACTOR] [-k CLUSTERING_MODEL] [-n NUM]
 
 options:
-  -h, --help                                    show this help message and exit
-  -f FILE, --file FILE                          reference image
-  -r RECOMMENDER, --recommender RECOMMENDER     the machine learning model used for recommendation
-  -c CLASSIFIER, --classifier CLASSIFIER        the machine learning model used for classification
-  -n NUM, --num NUM                             number of recommendations, default: 10
+  -h, --help                                                        show this help message and exit
+  -f FILE, --file FILE                                              reference image
+  -d DATABASE, --database DATABASE                                  the database containing the images to be recommended
+  -e FEATURE_EXTRACTOR, --feature-extractor FEATURE_EXTRACTOR       the machine learning model used for image feature extraction
+  -k CLUSTERING_MODEL, --clustering-model CLUSTERING_MODEL          the machine learning model used for image clustering
+  -n NUM, --num NUM                                                 number of recommendations, default: 10
 ```
 
 Example:
 
 ```bash
-python ./recommend.py --gui -f path/to/your/your/image.png -r ./models/rcm -c ./models/clf
+python ./recommend.py -f path/to/your/your/image.png
 ```
 
 When executed, the code above will display (using your system's default GUI image viewer) 10 similar flower images of the same type from the recommender database in `data/recommender-database/`, based on your reference image.

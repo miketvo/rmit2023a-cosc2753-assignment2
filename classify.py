@@ -40,15 +40,15 @@ def classify(image_path: str, classifier_path: str, verbose: bool = False, retur
 if __name__ == '__main__':
     ap = argparse.ArgumentParser()
     ap.add_argument('-f', '--file', required=True, help='the image to be classified')
-    ap.add_argument('-c', '--classifier', required=True, help='the machine learning model used for classification')
+    ap.add_argument('-c', '--classifier', default='models/clf-cnn', help='the machine learning model used for classification, defaults: models/clf-cnn')
     ap.add_argument('-g', '--gui', action='store_true', help='show classification result using GUI')
-    ap.add_argument('-v', '--verbose-level', required=False, choices=['0', '1', '2'], default='0', help="verbose level, default: 0")
+    ap.add_argument('-v', '--verbose-level', choices=['0', '1', '2'], default='0', help="verbose level, default: 0")
     args = vars(ap.parse_args())
     verbose_level = int(args['verbose_level'])
 
     img = os.path.abspath(args['file'])
     clf = os.path.abspath(args['classifier'])
-    image, predicted_label = classify(img, clf, False if verbose_level < 1 else True)
+    image, predicted_label = classify(img, clf, False if verbose_level < 2 else True)
 
     if args['gui']:
         canvas = ImageDraw.Draw(image)
