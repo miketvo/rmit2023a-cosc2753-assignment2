@@ -9,13 +9,14 @@ from utils.glob import CLASS_LABELS
 import utils.data_manip as manip
 
 
-def classify(image_path: str, classifier_path: str, verbose: bool = False) -> tuple:
+def classify(image_path: str, classifier_path: str, verbose: bool = False, return_original: bool = True) -> tuple:
     """
     Uses a trained machine learning model to classify an image loaded from disk.
     :param image_path: Path to the image to be classified.
     :param classifier_path: Path to the classifier model to be used.
     :param verbose: Verbose output.
-    :return: The original image (PIL.image) and its classification (str).
+    :param return_original: Whether to return the original image or the processed image.
+    :return: The original/processed image (PIL.image) and its classification (str).
     """
 
     im_original = Image.open(image_path)
@@ -30,7 +31,10 @@ def classify(image_path: str, classifier_path: str, verbose: bool = False) -> tu
     pred_class_idx = tf.argmax(pred, axis=1).numpy()[0]
     pred_class_label = CLASS_LABELS[pred_class_idx]
 
-    return im_original, pred_class_label
+    if return_original:
+        return im_original, pred_class_label
+    else:
+        return im_processed, pred_class_label
 
 
 if __name__ == '__main__':
