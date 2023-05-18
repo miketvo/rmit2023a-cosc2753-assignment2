@@ -106,12 +106,13 @@ The dataset for this project is available on [Kaggle](https://kaggle.com/dataset
     
     where each folder corresponds to a flower class, and contains images of only that class.
 
-4. Setup for training and testing: Run [notebooks/Step2.DataPrep.ipynb](notebooks/Step2.DataPrep.ipynb). This will clean, process, and split the raw dataset and the resulting train and test set into `data/train/` and `data/test/`, respectively. It will also generate a database for our image recommendation system in `data/recommender-database/`. Clean these folders before you run this notebook:
+4. Setup for training and testing: Run [notebooks/Step2.DataPrep.ipynb](notebooks/Step2.DataPrep.ipynb) and [Step5.Recommender.ipynb](notebooks/Step5.Recommender.ipynb). They will clean, process, and split the raw dataset and the resulting train and test set into `data/train/` and `data/test/`, respectively. They will also generate a database for our image recommendation system in `data/recommender-database/`, along with `data/recommender-database.csv` that contains the feature vectors for all images in the recommender database, in addition to exporting two helper models `models/fe-cnn` and `models/clu-kmeans.model` for the recommendation system. **Note:** Clean these folders and files before you run these two notebook:
 
     ```bash
     rmdir -r ./data/train
     rmdir -r ./data/test
     rmdir -r ./data/recommender-database
+    rm ./data/recommender-database.csv
     ```
    
     **<span style="color:red">Important:</span>** Clean and rerun this step every time you modify the raw dataset to get the most updated train dataset, test dataset, and recommender database.
@@ -122,8 +123,11 @@ The dataset for this project is available on [Kaggle](https://kaggle.com/dataset
 Skip this step if you just want to use on of the pre-trained model packages available from [Releases](https://github.com/miketvo/rmit2023a-cosc2753-assignment2/releases).
 
 - Run each Jupyter Notebook in `notebooks/` in their prefixed order starting `Step1.`, `Step2.`, `Step3.`, and so on, <span style="color:red">**one file at a time**</span>.
-- Skip [Step2.DataPrep.ipynb](notebooks/Step2.DataPrep.ipynb) if you have already run it after downloading the raw dataset.
+- Skip [Step2.DataPrep.ipynb](notebooks/Step2.DataPrep.ipynb) if you have already run it after downloading the raw dataset in the step above.
+- Skip [Step5.Recommender.ipynb](notebooks/Step5.Recommender.ipynb) if you have already run it after downloading the raw dataset in the step above.
 - The resulting models are exported into `models/` folder. Their training logs are stored in `log/` folder.
+
+**Note:** Beware: any existing model with conflicting name in `models/` will be replaced with newly trained models.
 
 
 ### Using Trained Models
