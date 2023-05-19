@@ -40,7 +40,7 @@ For problem description and requirements, see [Project Statement](project-statem
 
 Additionally, these folders will be created during dataset fetching and model training:
 
-1. `data/`: This folder contains out datasets.
+1. `data/`: This folder contains our datasets, both raw and processed.
 2. `log/`: This folder contains training logs exported from training our models.
 3. `models/`: This folder contains trained models exported after training.
 
@@ -68,6 +68,8 @@ Refer to [requirements.txt](requirements.txt) for package dependencies and their
 
 <span style="color:gold">**NOTE:**</span> It is recommended that you use a Python virtual environment to avoid conflict with your global packages, and to keep your global Python installation clean. This is because we require specific versions of Numpy, Tensorflow and Keras in our code to maintain backward compatibility and compatibility between trained models and client code.
 
+<span style="color:red">**IMPORTANT:** Required Python version: 3.10 and above, recommended Python version: 3.11.</span>
+
 
 ### Download Dataset
 
@@ -75,7 +77,7 @@ The dataset for this project is available on [Kaggle](https://kaggle.com/dataset
 
 1. Navigate to project's root directory.
 
-2. Clean all existing files in the `data/` folders (if exists) before downloading or updating this dataset:
+2. Clean all existing files and folders in the `data/` folders (if exists) before downloading or updating this dataset:
 
     ```bash
     rm -r ./data/*
@@ -106,6 +108,8 @@ The dataset for this project is available on [Kaggle](https://kaggle.com/dataset
     
     where each folder corresponds to a flower class, and contains images of only that class.
 
+    <span style="color:red">**IMPORTANT:** The location of the downloaded dataset from Kaggle MUST be in this structure, otherwise the Jupyter Notebooks and client script will not work.</span>
+
 4. Setup for training and testing: Run [notebooks/Step2.DataPrep.ipynb](notebooks/Step2.DataPrep.ipynb) and [Step5.Recommender.ipynb](notebooks/Step5.Recommender.ipynb). They will clean, process, and split the raw dataset and the resulting train and test set into `data/train/` and `data/test/`, respectively. They will also generate a database for our image recommendation system in `data/recommender-database/`, along with `data/recommender-database.csv` that contains the feature vectors for all images in the recommender database, in addition to exporting two helper models `models/fe-cnn` and `models/clu-kmeans.model` for the recommendation system. **Note:** Clean these folders and files before you run these two notebook:
 
     ```bash
@@ -133,6 +137,8 @@ Skip this step if you just want to use on of the pre-trained model packages avai
 ### Using Trained Models
 
 If you are using one of our pre-trained model packages, download your desired version from [Releases](https://github.com/miketvo/rmit2023a-cosc2753-assignment2/releases) (.zip archives) and extract its contents into this project's root directory using your preferred zip program. Make sure to check and clean `models/` folder (if exists) to avoid naming conflict with existing trained model before the extraction.
+
+<span style="color:red">**IMPORTANT:** The location of our downloaded trained models MUST be in this folder structure, otherwise the Jupyter Notebooks and client script will not work.</span>
 
 These trained models can then be loaded into your code with:
 
