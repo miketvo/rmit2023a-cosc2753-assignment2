@@ -68,6 +68,8 @@ Refer to [requirements.txt](requirements.txt) for package dependencies and their
 
 <span style="color:gold">**NOTE:**</span> It is recommended that you use a Python virtual environment to avoid conflict with your global packages, and to keep your global Python installation clean. This is because we require specific versions of Numpy, Tensorflow and Keras in our code to maintain backward compatibility and compatibility between trained models and client code.
 
+<span style="color:red">**IMPORTANT:** Required Python version: 3.10 and above, recommended Python version: 3.11.</span>
+
 
 ### Download Dataset
 
