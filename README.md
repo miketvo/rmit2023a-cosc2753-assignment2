@@ -81,12 +81,12 @@ The dataset for this project is available on [Kaggle](https://kaggle.com/dataset
     rm -r ./data/*
     ```
 
-3. Download and **extract contents of** the `.zip` from [Kaggle](https://kaggle.com/datasets/979207e9d5e6d91d26e8eb340941ae176c82fbdb2a25b4a436c273895ab96bb1) into `data/raw` folder.
+3. Download and **extract contents of** the `.zip` from [Kaggle](https://kaggle.com/datasets/979207e9d5e6d91d26e8eb340941ae176c82fbdb2a25b4a436c273895ab96bb1) into `data/data` folder.
 
    Alternatively, use the [Kaggle CLI](https://github.com/Kaggle/kaggle-api):
 
     ```bash
-    kaggle datasets download -d miketvo/rmit-flowers -p ./data/raw/ --unzip
+    kaggle datasets download -d miketvo/rmit-flowers -p ./data/data/ --unzip
     ```
    
     The resulting folder structure should look like this:
@@ -94,7 +94,7 @@ The dataset for this project is available on [Kaggle](https://kaggle.com/dataset
     ```
     .
     ├── data/
-    │   └── raw/
+    │   └── data/
     │       ├── Baby/
     │       ├── Calimerio/
     │       ├── Chrysanthemum/
